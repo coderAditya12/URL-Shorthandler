@@ -2,17 +2,20 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const URL = require("./model/url");
-const staticRoute = require("./routes/staticRouter");
-const urlRoute = require("./routes/url");
-// const { find } = require("./model/user");
+
+
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
 
+const staticRoute = require("./routes/staticRouter");
+const urlRoute = require("./routes/url");
+const userRoute = require("./routes/user")
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/", staticRoute);
 
 app.use("/url", urlRoute);
+app.use("/user", userRoute);
 
 app.get("/:shortId", async (req, res) => {
   try {
